@@ -1,0 +1,40 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html{
+  height: 100vh;
+  width: 100vw;
+  background-color: lightslategray;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.title{
+  font-size: 24px;
+  color: lightgreen;
+}
+
+.container{
+  background-color: whitesmoke;
+  border: 3px solid black;
+  padding: 3px;
+  height: 750px;
+  width: 750px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 5px;
+}
+
+.card{
+  cursor: pointer;
+  background-color: lightblue;
+}
+.card:hover{
+  box-shadow: 1px 1px 10px lightgray;
+}
