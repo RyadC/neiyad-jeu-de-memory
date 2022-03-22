@@ -14,27 +14,93 @@ body, html{
   align-items: center;
 }
 
-.title{
-  font-size: 24px;
-  color: lightgreen;
+.container{
+  height: 100%;
+  width: 750px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
-.container{
+.title{
+  font-size: 34px;
+  font-family: sans-serif;
+  color: lightgreen;
+  margin-bottom: 30px;
+}
+
+.game{
   background-color: whitesmoke;
   border: 3px solid black;
   padding: 3px;
-  height: 750px;
-  width: 750px;
+  margin: 15px 0;
+  height: max-content;
+  width: max-content;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
   gap: 5px;
 }
 
+.card-container{
+  cursor: pointer;
+  height: 150px;
+  width: 150px;
+  position: relative;
+}
+
+.verso{
+  height: 150px;
+  width: 150px;
+  background-color: green;
+  transform: rotateY(0deg);
+  transition: transform 0.5s ease 0.5s;
+}
+.verso:hover{
+  box-shadow: 1px 1px 10px lightgray;
+}
+
 .card{
   cursor: pointer;
-  background-color: lightblue;
+  background-color: rgb(40, 115, 139);
+  height: 150px;
+  width: 150px;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  transform: rotateY(90deg);
+  transform-origin: center;
+  transition: transform 0.5s ease, z-index 0.3s ease 0.6s;
 }
-.card:hover{
-  box-shadow: 1px 1px 10px lightgray;
+
+
+.reset{
+  align-self: flex-end;
+  height: 30px;
+  width: 150px;
+  font-size: 17px;
+  background-color: lightpink;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bolder;
+}
+.reset:hover{
+  box-shadow: 1px 1px 10px lightgrey;
+}
+
+
+
+
+/** JS **/
+.goBack{
+  transition: transform 0.5s ease 0.5s;
+  transform: rotateY(180deg);
+  z-index: 0;
+}
+
+.skipFront{
+  transition: transform 0.5s ease;
+  transform: rotateY(-90deg);
 }
