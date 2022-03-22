@@ -73,6 +73,7 @@ melangerLesCartes();
 
 let numberCardsTourned = [];
 let cardsTourned = [];
+let cardsFind = [];
 cardsVerso.forEach(card => {
   card.addEventListener('click', () => {
     // Révéler la carte
@@ -85,7 +86,20 @@ cardsVerso.forEach(card => {
 
     // Au bout de deux: vérifier si elles sont identiques
     if(cardsTourned.length === 2){
+      let srcCard1 = cardsTourned[0].attributes["src"].textContent;
+      let srcCard2 = cardsTourned[1].attributes["src"].textContent;
 
+      if(srcCard1 === srcCard2){
+        // Si cartes identiques
+          // Sauvegarder dans un tableau à part
+        cardsFind.push(cardsTourned[0], cardsTourned[1]);
+        console.log(cardsFind);
+
+          // Vider le tableau de cartes cliquées
+        cardsTourned = [];  
+
+      }else{
+        // Si pas identique, retourner les cartes
         setTimeout(() => {
           cardsTourned.forEach(card => {
             console.log(card.previousElementSibling);
@@ -95,6 +109,7 @@ cardsVerso.forEach(card => {
           });
           cardsTourned = [];
       }, 1700);
+      }
       }
   })
 });
