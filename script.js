@@ -75,17 +75,27 @@ let numberCardsTourned = [];
 let cardsTourned = [];
 cardsVerso.forEach(card => {
   card.addEventListener('click', () => {
+    // Révéler la carte
     card.classList.add('skipFront');
     card.nextElementSibling.classList.add('goBack');
     
-    if(cardsTourned.length < 2){
-      cardsTourned.push(card);
-    }else{
-      cardsTourned.forEach(card => {
-        card.classList.remove('goBack');
-        card.previousElementSibling.classList.remove('skipFront');
-      });
-    }
+    // Sauvegarder la carte cliquée
+    cardsTourned.push(card.nextElementSibling);
+    console.log(card.nextElementSibling)
+
+    // Au bout de deux: vérifier si elles sont identiques
+    if(cardsTourned.length === 2){
+
+        setTimeout(() => {
+          cardsTourned.forEach(card => {
+            console.log(card.previousElementSibling);
+            card.previousElementSibling.classList.remove('skipFront');
+            console.log(card);
+            card.classList.remove('goBack');
+          });
+          cardsTourned = [];
+      }, 1700);
+      }
   })
 });
 
