@@ -60,6 +60,15 @@ body, html{
   position: absolute;
 }
 
+.time-count{
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  background-color: #b65381;
+}
+
 .game-container{
   height: 100%;
   width: 750px;
@@ -73,9 +82,24 @@ body, html{
 
 .title{
   font-size: 54px;
-  color: rgb(182, 83, 129);
+  color: #b65381;
   margin-bottom: 30px;
   margin-top: 50px;
+}
+
+.reset{
+  align-self: flex-end;
+  height: 30px;
+  width: 150px;
+  font-size: 17px;
+  background-color: lightpink;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bolder;
+}
+.reset:hover{
+  box-shadow: 1px 1px 10px lightgrey;
 }
 
 .game{
@@ -124,20 +148,19 @@ body, html{
   transition: transform 0.5s ease, z-index 0.3s ease 0.6s;
 }
 
-
-.reset{
-  align-self: flex-end;
-  height: 30px;
-  width: 150px;
-  font-size: 17px;
-  background-color: lightpink;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bolder;
+.progressBar{
+  height: 15px;
+  width: 100%;
+  border-radius: 10px/15px;
+  background-color: lightgrey;
 }
-.reset:hover{
-  box-shadow: 1px 1px 10px lightgrey;
+.progressBarAvance{
+  height: 100%;
+  width: 0%;
+  background-color: #b65381;
+  border-radius: 10px/15px;
+  transform-origin: left;
+  transition: 1.33s ease;
 }
 
 

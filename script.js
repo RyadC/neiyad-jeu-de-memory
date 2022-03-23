@@ -11,6 +11,8 @@ const imgElements = document.querySelectorAll('.card');
 
 const btnReset = document.querySelector('.reset');
 
+const progressBarElement = document.querySelector('.progressBarAvance');
+
 
 /********* FUNCTIONS **********/
 function getRandomArbitrary(min, max) {
@@ -86,20 +88,39 @@ function cacherCartes(listeCartes){
 
 
 /****** CODE ******/
+// Enlever la div de chargement et l'opacité que lorsque la page est prête 
 document.addEventListener('readystatechange', () => {
   if(document.readyState === "complete"){
     console.log(document.readyState)
     loadingContainer.classList.add('disparition');
     opacityElement.classList.add('disparition');
   }
-})
+});
 
-let numberCardsTourned = [];
+// Compte à rebours
+let now = 300; // 300s = 5mn
+setInterval(() => {
+  let minutes = Math.floor(now / 60);
+  let secondes = now;
+  while (secondes > 60){
+    secondes -= 60;
+  }
+  if(secondes === 60){
+    secondes = 0;
+  }
+  now -= 1;
+}, 1000)
+
+
+
+let cardsNumber = 25;
+let progression;
 let cardsTourned = [];
 let cardsFind = [];
 
 melangerLesCartes();
 
+// Lors du clique sur le bouton "Recommencer"
 btnReset.addEventListener('click', () => {
   // Demander confirmation avant de recommencer 
   if(confirm('Etes vous sûr de vouloir recommmencer la partie?')){
@@ -112,12 +133,14 @@ btnReset.addEventListener('click', () => {
       cardsFind = [];
     };
     // Mélanger les cartes
-    melangerLesCartes();
+    setTimeout(() => {
+      melangerLesCartes();
+    }, 0);
   };
   
 });
 
-
+// Lors du clique sur la carte
 cardsVerso.forEach(card => {
   card.addEventListener('click', () => {
     // Révéler la carte
@@ -133,11 +156,15 @@ cardsVerso.forEach(card => {
       let srcCard1 = cardsTourned[0].attributes["src"].textContent;
       let srcCard2 = cardsTourned[1].attributes["src"].textContent;
 
+      // Si cartes identiques
       if(srcCard1 === srcCard2){
-        // Si cartes identiques
           // Sauvegarder dans un tableau à part
         cardsFind.push(cardsTourned[0], cardsTourned[1]);
-        console.log(cardsFind);
+
+          // Mettre la barre de progression à jour
+        progression = (cardsFind.length / (cardsNumber - 1)) * 100;
+
+        document.styleSheets[1].insertRule(`.progressBarAvance {width: ${progression}%`,document.styleSheets[1].cssRules.length);
 
           // Vider le tableau de cartes cliquées
         cardsTourned = [];  
@@ -150,6 +177,6 @@ cardsVerso.forEach(card => {
       }, 1700);
       };
       };
-  })
+  });
 });
 
