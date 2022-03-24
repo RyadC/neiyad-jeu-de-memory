@@ -1,5 +1,5 @@
 /**** IMPORT ****/
-import {listImg} from './data.js';
+import {listImg} from '../../data.js';
 
 
 /********* DOM ********/
