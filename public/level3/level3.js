@@ -1,5 +1,6 @@
 /**** IMPORT ****/
-import {listImg} from '../../data.js';
+import {listImg} from '../data.js';
+// const listImg = require('../data');
 
 
 /********* DOM ********/
@@ -43,7 +44,7 @@ function melangerLesCartes(){
     let nomFruit = listImg[indexFruit];
     
       // Donner la valeur au src de l'élément img
-    imgElements[imgElementSeule].setAttribute("src", `./assets/images/${nomFruit}.jpg`);
+    imgElements[imgElementSeule].setAttribute("src", `../assets/images/${nomFruit}.jpg`);
   
     // Sauvegarder les chiffres utilisés pour la récup en BDD
     listChiffresUtilises.push(indexFruit);
@@ -82,8 +83,8 @@ function melangerLesCartes(){
       listImgElementsUtilises.push(imgElement2);
     
       // Après avoir tout trouvé, donner l'attribut src de l'img en BDD à l'élément HTML img
-      imgElements[imgElement1].setAttribute("src", `./assets/images/${nomFruit}.jpg`);
-      imgElements[imgElement2].setAttribute("src", `./assets/images/${nomFruit}.jpg`);
+      imgElements[imgElement1].setAttribute("src", `../assets/images/${nomFruit}.jpg`);
+      imgElements[imgElement2].setAttribute("src", `../assets/images/${nomFruit}.jpg`);
     };
     resolve(true);
   });

@@ -28,3 +28,5 @@ let listImg =
 ];
 
 export {listImg};
+
+// module.exports = listImg;
