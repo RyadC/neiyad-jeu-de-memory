@@ -179,7 +179,7 @@ async function startApp(){
             // Mettre la barre de progression à jour
           progression = (cardsFind.length / (cardsNumber - 1)) * 100;
 
-          document.styleSheets[1].insertRule(`.progressBarAvance {width: ${progression}%`,document.styleSheets[1].cssRules.length);
+          document.styleSheets[0].insertRule(`.progressBarAvance {width: ${progression}%`,document.styleSheets[0].cssRules.length);
 
             // Vider le tableau de cartes cliquées
           cardsTourned = [];  
@@ -195,7 +195,7 @@ async function startApp(){
               // Réinitialiser la barre de progression
               progression = 0;
 
-              document.styleSheets[1].insertRule(`.progressBarAvance {width: ${progression}%`,document.styleSheets[1].cssRules.length);
+              document.styleSheets[0].insertRule(`.progressBarAvance {width: ${progression}%`,document.styleSheets[0].cssRules.length);
             };
 
         }else{
