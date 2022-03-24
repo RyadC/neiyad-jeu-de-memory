@@ -1,0 +1,174 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("./assets/police/Roboto-Regular.ttf") format("truetype")
+ }
+
+body, html{
+  height: 100vh;
+  width: 100vw;
+  min-width: 1260px;
+  background-image: url('./assets/bcg/enfant3.png');
+  background-repeat: no-repeat;
+  background-position: bottom;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: Roboto, sans-serif;
+}
+
+.title{
+  font-size: 54px;
+  color: #b65381;
+  margin-bottom: 70px;
+  margin-top: 70px;
+}
+
+.form{
+  background-color: white;
+  width: 600px;
+  height: 250px;
+  box-shadow: 1px 1px 10px lightgray;
+  margin-top: 15px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.menu{
+  /* background-color: transparent; */
+  height: 60%;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.level-container{
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 15px;
+}
+.level-label{
+  font-size: 25px;
+  margin-top: 60px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #306eb6;
+  text-transform: uppercase;
+}
+.level-select{
+  width: 73%;
+  padding: 5px;
+  padding-left: 8%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 25px;
+  outline: none;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #e9781b;
+}
+.level-select option{
+  width: 100%;
+}
+.level1{
+  color: #b65381;
+  font-weight: bold;
+}
+.level2{
+  color: #3db42d;
+  font-weight: bold;
+}
+.level3{
+  color: #306eb6;
+  font-weight: bold;
+}
+
+
+.chrono-container{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 50%;
+  position: relative;
+  padding-right: 30px;
+}
+.chrono-label{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  font-size: 25px;
+  margin-top: 60px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #306eb6;
+  text-transform: uppercase;
+}
+.chrono-label::after{
+  content: "";
+  position: absolute;
+  height: 23px;
+  width: 23px;
+  top: 45px;
+  left: 36%;
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid rgb(128, 128, 128);
+  box-shadow: 0 0 2px rgb(95, 95, 95);
+  transition: transform ease 0.33s;
+  cursor: pointer;
+}
+.chrono-checkbox{
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  display: none;
+}
+.chrono-checkbox:checked + .chrono-label::after{
+  transform: translateX(25px);
+  transition: transform ease 0.33s;
+}
+.chrono-checkbox-bcg{
+  height: 25px;
+  width: 50px;
+  background-color: lightgrey;
+  border-radius: 50px;
+  box-shadow: inset 1px 1px 5px rgb(158, 158, 158);
+}
+.chrono-checkbox:checked ~ .chrono-checkbox-bcg{
+  background-color: rgb(50, 192, 50);
+  transition: transform ease 0.33s;
+}
+
+.play-btn{
+  height: 35px;
+  width: 150px;
+  margin-top: 35px;
+  border-radius: 15px;
+  border: 2px solid #4cc43c;
+  background-color: white;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #4cc43c;
+  font-weight: bold;
+  cursor: pointer;
+}

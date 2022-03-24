@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="home.css">
+  <title>Memory Game</title>
+</head>
+<body>
+  <h1 class="title">Memory Game</h1>
+
+  <form action="./index.html" method="post" class="form">
+    <div class="menu">
+
+      <div class="level-container">
+        <label for="level-id" class="level-label">Choix du niveau</label>
+        <select name="level" id="level-id" class="level-select">
+          <option class="level" value="level" disabled>--Niveau--</option>
+          <option class="level1" value="level1">Niveau 1 - 9 cartes</option>
+          <option class="level2" value="level2">Niveau 2 - 17 cartes</option>
+          <option class="level3" value="level3">Niveau 3 - 25 cartes</option>
+        </select>
+      </div>
+
+      <div class="chrono-container">
+        <input type="checkbox" name="chrono" id="chrono-id" class="chrono-checkbox">
+        <label for="chrono-id" class="chrono-label">Avec chrono
+        </label>
+        <div class="chrono-checkbox-bcg"></div>
+      </div>
+
+    </div>
+
+    <button type="submit" class="play-btn">Jouer !</button>
+  </form>
+  
+</body>
+</html>
