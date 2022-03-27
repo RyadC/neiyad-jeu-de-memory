@@ -4,7 +4,7 @@ const { app } = require('./app.js');
 
 
 /******* SETTINGS *******/
-const PORT = process.env.PORT || 56227;
+const PORT = process.env.PORT;
 
 
 const server = http.createServer(app);
