@@ -18,7 +18,7 @@ const app = express();
 /** APP **/
 // Laisser accéder le navigateur aux réponses du serveur via l'url donnée
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "https://neiyad-jeu-de-memory.herokuapp.com/",
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
