@@ -1,6 +1,5 @@
 /**** IMPORT ****/
 import {listImg} from '../data.js';
-// const listImg = require('../data');
 
 
 /********* DOM ********/
@@ -14,6 +13,8 @@ const imgElements = document.querySelectorAll('.card');
 
 const successElement = document.querySelector('.successGame');
 const successTime = document.querySelector('.successTime');
+const succesGameTitle = document.querySelector('.successGame-title');
+const succesGameText = document.querySelector('.successGame-text');
 
 const successHomeBtn = document.querySelector('.successGameHome');
 const successRetryBtn = document.querySelector('.successGameRetry');
@@ -86,6 +87,7 @@ function melangerLesCartes(){
       imgElements[imgElement1].setAttribute("src", `../assets/images/${nomFruit}.jpg`);
       imgElements[imgElement2].setAttribute("src", `../assets/images/${nomFruit}.jpg`);
     };
+    console.log('cartes mélangées');
     resolve(true);
   });
  
@@ -100,13 +102,16 @@ function cacherCartes(listeCartes){
 };
 
 function loadApp(){
-  document.addEventListener('readystatechange', () => {
-    if(document.readyState === "complete"){
-      console.log(document.readyState)
-      loadingContainer.classList.add('disparition');
-      opacityElement.classList.add('disparition');
-    };
-  });
+  return new Promise((resolve, reject) => {
+    window.addEventListener('load', () => {
+      // if(document.readyState === "complete"){
+        console.log(document.readyState)
+        loadingContainer.classList.add('disparition');
+        opacityElement.classList.add('disparition');
+        resolve();
+      // };
+    });
+  })
 };
 
 function startChrono(timeChrono){
@@ -127,8 +132,18 @@ function startChrono(timeChrono){
     };
     timeCount.textContent = `${minutes}:${secondes}`;
 
+    // A la fin du chrono
     if(timeChrono < 0){
       clearInterval(intervalId);
+      successElement.classList.add('successGame-no');
+      succesGameTitle.textContent = 'Perdu';
+      succesGameTitle.classList.add('successGame-title-no');
+      succesGameText.textContent = 'Trop tard ! Le temps est écoulé... :\'(';
+      successElement.classList.remove('disparition');
+      opacityElement.classList.remove('disparition');
+
+      // Réinitialiser la barre de progression
+      document.styleSheets[0].insertRule(`.progressBarAvance {width: 0%`,document.styleSheets[0].cssRules.length);
     };
   }, 1000);
 
@@ -136,22 +151,35 @@ function startChrono(timeChrono){
 };
 
 function loaderDisparition(){
-  setTimeout(() => {
-    loadingContainer.classList.add('disparition');
-    opacityElement.classList.add('disparition');
-  }, 2000);
+  // setTimeout(() => {
+    return new Promise((resolve, reject) => {
+      loadingContainer.classList.add('disparition');
+      opacityElement.classList.add('disparition');
+      console.log('loader disparu')
+      resolve();
+    });
+  // }, 2000);
 }
 
-async function startApp(){
-  
-  // Compte à rebours en seconde
-  let intervalId = startChrono(302);
-
-
+async function app(){
   let cardsNumber = 25;
   let progression;
   let cardsTourned = [];
   let cardsFind = [];
+  let chronoTime = 10;
+  
+  // Chrono si il a été choisi
+    // Compte à rebours en seconde
+  let withChrono = document.location.search.split('&')[1];
+  let intervalId = '';
+  if(withChrono){
+    intervalId = startChrono(chronoTime);
+  }else{
+    timeCount.textContent = `0:00`;
+
+  };
+
+
 
   await melangerLesCartes();
 
@@ -184,13 +212,17 @@ async function startApp(){
             // Vider le tableau de cartes cliquées
           cardsTourned = [];  
 
-            // A la fin de la partie:
-            if(cardsFind.length === cardsNumber - 1){
+            // Si toutes les cartes sont retournées:
+            if(cardsFind.length === cardsNumber){
               // Arrêter le compteur
               clearInterval(intervalId);
+              successElement.classList.add('successGame-yes');
+              succesGameTitle.textContent = 'Bravo !';
+              succesGameTitle.classList.add('successGame-title-yes');
+              succesGameText.textContent = 'Vous avez gagné la partie en ';
+              successTime.textContent = timeCount.textContent;
               successElement.classList.remove('disparition');
               opacityElement.classList.remove('disparition');
-              successTime.textContent = timeCount.textContent;
 
               // Réinitialiser la barre de progression
               progression = 0;
@@ -213,6 +245,11 @@ async function startApp(){
    btnReset.addEventListener('click', async () => {
     // Demander confirmation avant de recommencer 
     if(confirm('Etes vous sûr de vouloir recommmencer la partie?')){
+      // Bloquer le compteur et réinitialiser setinterval
+      if(withChrono){
+        clearInterval(intervalId);
+      };
+
       loadingContainer.classList.remove('disparition');
       opacityElement.classList.remove('disparition');
       // Si oui
@@ -224,53 +261,71 @@ async function startApp(){
           cardsFind = [];
         };
         
-        // Bloquer le compteur et réinitialiser setinterval
-        clearInterval(intervalId);
 
         // Mélanger les cartes
         await melangerLesCartes()
         
+        
         // Faire disparaitre le loader
-        loaderDisparition();
-
+        await loaderDisparition();
+        
         // Relancer un nouveau chrono
-        intervalId = startChrono(300);
+        if(withChrono){
+          intervalId = startChrono(chronoTime);
+        };
     };
     
   });
 
   // Lors du clique sur le bouton "Recommencer" en cas de succès
   successRetryBtn.addEventListener('click', async () => {
+    // Bloquer le compteur et réinitialiser setinterval
+    if(withChrono){
+      clearInterval(intervalId);
+    };
+    
     successElement.classList.add('disparition');
     loadingContainer.classList.remove('disparition');
+    
+    if(cardsTourned.length > 0 || cardsFind.length > 0){
+      // Regarder si des cartes sont déjà retournées et les cacher puis vider les tableaux de sauvegarde
+      cacherCartes(cardsTourned);
+      cardsTourned = [];
+      cacherCartes(cardsFind);
+      cardsFind = [];
+    };
+    
+    
+    // Mélanger les cartes
+    await melangerLesCartes()
+    
+    // Relancer un nouveau chrono
+    if(withChrono){
+      intervalId = startChrono(chronoTime);
+    };
+    // Faire disparaitre le loader
+    await loaderDisparition();
 
-    // Retourner les cartes
-    cacherCartes(cardsFind);
-    cardsTourned = [];
-    cardsFind = [];
-      
-      // Bloquer le compteur et réinitialiser setinterval
-      clearInterval(intervalId);
-
-      // Mélanger les cartes
-      await melangerLesCartes()
-      
-      // Faire disparaitre le loader
-      loaderDisparition();
-
-      // Relancer un nouveau chrono
-      intervalId = startChrono(300);
   });
 
+  // Lors du clique sur le bouton accueil
+  successHomeBtn.addEventListener('click', () => {
+    document.location.href='http://localhost:3000';
+    console.log('home')
+  })
 
 };
 
+async function startApp(){
+  // Enlever la div de chargement et l'opacité que lorsque la page est prête 
+  await loadApp();
+
+  // Lancer les éléments de l'application
+  app();
+}
 
 
 /****** CODE ******/
-// Enlever la div de chargement et l'opacité que lorsque la page est prête 
-loadApp();
-
 // Lancer l'application
 startApp();
 

@@ -8,6 +8,7 @@ const { moduleExpression } = require('@babel/types');
 /*** APP REQUIRE ***/
 const level3Route = require('./routes/level3.route');
 const { nextTick } = require('process');
+const config = require('./config')
 
 
 /******* SETTINGS *******/
@@ -19,28 +20,24 @@ const app = express();
 app.use(cors({
   origin: "http://localhost:3000",
 }));
-// app.use((req, res, next) => {
-//   console.log(req.method, 'puis', req.baseUrl, 'puis', req.url);
-//   next();
-// })
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/?level=level3', level3Route);
+let withChrono = '';
 
 app.get('/', (req, res) => {
-  if(req.url === '/?level=level3'){
-    // console.log(req.method, 'puis', req.baseUrl, 'puis', req.url);
-    // res.sendFile(path.join(__dirname, 'public', 'level3', 'level3.html'))
-    res.status(200).type('text/html').sendFile(path.join(__dirname, 'public', 'level3', 'level3.html'));
-    // res.sendFile(path.join(__dirname, 'public', 'home', 'home.html'));
+  withChrono = req.url.split('&')[1];
 
+  if(req.url.split('&')[0] === '/?level=level3'){
+    res.status(200).type('text/html').sendFile(path.join(__dirname, 'public', 'level3', 'level3.html'));
   }else{
     res.sendFile(path.join(__dirname, 'public', 'home', 'home.html'));
-  }
+  };
 });
 
 
 
-
-module.exports = app;
+module.exports = {
+  app,
+  withChrono,
+};
