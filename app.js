@@ -18,7 +18,8 @@ const app = express();
 /** APP **/
 // Laisser accéder le navigateur aux réponses du serveur via l'url donnée
 app.use(cors({
-  origin: "https://neiyad-jeu-de-memory.herokuapp.com/",
+  // origin: "https://neiyad-jeu-de-memory.herokuapp.com/",
+  origin: "http://localhost:3000",
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 let withChrono = '';
 
 app.get('/', (req, res) => {
+  console.log(req.url)
   withChrono = req.url.split('&')[1];
 
   if(req.url.split('&')[0] === '/?level=level3'){
