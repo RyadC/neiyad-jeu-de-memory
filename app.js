@@ -28,12 +28,32 @@ let withChrono = '';
 app.get('/', (req, res) => {
   console.log(req.url)
   withChrono = req.url.split('&')[1];
+  let levelUrl = req.url.split('&')[0];
 
-  if(req.url.split('&')[0] === '/?level=level3'){
-    res.status(200).type('text/html').sendFile(path.join(__dirname, 'public', 'level3', 'level3.html'));
-  }else{
-    res.sendFile(path.join(__dirname, 'public', 'home', 'home.html'));
-  };
+  switch (levelUrl){
+    case '/?level=level3':
+      res.status(200).type('text/html').sendFile(path.join(__dirname, 'public', 'level3', 'level3.html'));
+    break;
+
+    case '/?level=level2':
+      res.status(200).type('text/html').sendFile(path.join(__dirname, 'public', 'level2', 'level2.html'));
+    break;
+
+    case '/?level=level1':
+      res.status(200).type('text/html').sendFile(path.join(__dirname, 'public', 'level1', 'level1.html'));
+    break;
+
+    default:
+      res.status(200).type('text/html').sendFile(path.join(__dirname, 'public', 'home', 'home.html'));
+
+
+  }
+
+  // if(levelUrl === '/?level=level3'){
+  //   res.status(200).type('text/html').sendFile(path.join(__dirname, 'public', 'level3', 'level3.html'));
+  // }else{
+  //   res.sendFile(path.join(__dirname, 'public', 'home', 'home.html'));
+  // };
 });
 
 

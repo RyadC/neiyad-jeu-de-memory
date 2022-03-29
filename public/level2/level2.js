@@ -328,7 +328,7 @@ async function startApp(){
   await loadApp();
 
   // Lancer les éléments de l'application
-  app(300, 25, 25);
+  app(300, 15, 25);
 }
 
 

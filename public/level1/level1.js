@@ -328,11 +328,10 @@ async function startApp(){
   await loadApp();
 
   // Lancer les éléments de l'application
-  app(300, 25, 25);
+  app(300, 9, 25);
 }
 
 
 /****** CODE ******/
 // Lancer l'application
 startApp();
-
