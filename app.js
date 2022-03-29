@@ -8,7 +8,6 @@ const { moduleExpression } = require('@babel/types');
 /*** APP REQUIRE ***/
 const level3Route = require('./routes/level3.route');
 const { nextTick } = require('process');
-const config = require('./config')
 
 
 /******* SETTINGS *******/
